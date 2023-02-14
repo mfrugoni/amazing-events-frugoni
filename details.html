@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/img/favicon-ae.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
     <title>Details | Amazing Events</title>
 </head>
@@ -17,16 +21,84 @@
             <a href="./index.html">Home</a>
             <a href="./upcomig-events.html">Upcoming Events</a>
             <a href="./past-events.html">Past Events</a>
-            <a href="#">Details</a>
+            <a class="current" href="#">Details</a>
             <a href="./stats.html">Stats</a>
             <a href="./contact.html">Contact Us</a>
         </nav>
+        
     </header>
     <main>
+        <div class="title">
+            <a class="flecha" href=""><</a>
+            <h1>Details</h1>
+            <a class="flecha" href="">></a>
+        </div>
+        <section>
+            <form action="" method="get">
+                <div class="category">
+                    <div>
+                        <input type="checkbox" name="category" id="category">
+                        <label for="category">Category</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="category" id="category">
+                        <label for="category">Category</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="category" id="category">
+                        <label for="category">Category</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="category" id="category">
+                        <label for="category">Category</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" name="category" id="category">
+                        <label for="category">Category</label>
+                    </div>
+                </div>
+
+                <div class="search">
+                    <input type="search" name="search" id="search">
+                    <button type="submit">search</button>
+                </div>
+            </form>
+        </section>
+        <article>
+            <div class="contain">
+
+                <div class="detail">
+                    <div>
+                        <img src="./assets/img/Marathon.jpg" alt="">
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Name:</li>
+                            <li>Date:</li>
+                            <li>Description</li>
+                            <li>Category</li>
+                            <li>Place:</li>
+                            <li>Capacity:</li>
+                            <li>Assistance or estimate:</li>
+                            <li>Price:</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </article>
 
     </main>
     <footer>
-
+        <div class="social">
+            <a href="https://www.instagram.com/"><img src="assets/img/instagram.png" alt="Link instagram"></a>
+            <div class="fcb">
+                <a href="https://es-la.facebook.com/"><img src="./assets/img/facebook.png" alt="Link facebook"></a>
+            </div>
+            
+            <a href="https://www.whatsapp.com/"><img src="./assets/img/whatsapp.png" alt="Link whatsapp"></a>
+        </div>
+        <h3>Cohort</h3>
     </footer>
 
 <script src="scripts.js"></script>
