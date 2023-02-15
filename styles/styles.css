@@ -212,6 +212,7 @@ main {
     color: #fff;
     padding: 0.5rem 0;
     border: none;
+    font-size: 1rem;
 }
 
 /* Details */
@@ -259,7 +260,7 @@ td {
 .top {
     font-size: 1.2em;
     background-color: #8b0243;
-    color: #36011a;
+    color: #e0046c;
 }
 
 tr {
@@ -295,5 +296,9 @@ footer {
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #e0046c;
+
+}
+.social>a>i{
+    color: #fce6f0;
+    font-size: 1.3rem;  
 }
