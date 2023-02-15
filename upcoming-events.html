@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/img/favicon-ae.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
     <title>Upcoming events | Amazing Events</title>
 </head>
@@ -15,7 +19,7 @@
         </div>
         <nav>
             <a href="./index.html">Home</a>
-            <a href="#">Upcoming Events</a>
+            <a class="current" href="#">Upcoming Events</a>
             <a href="./past-events.html">Past Events</a>
             <a href="./details.html">Details</a>
             <a href="./stats.html">Stats</a>
@@ -23,10 +27,94 @@
         </nav>
     </header>
     <main>
+        <div class="title">
+            <a class="flecha" href="">&lt;</a>
+            <h1>Home</h1>
+            <a class="flecha" href="">></a>
+        </div>
 
+        <form class="top-form">
+            <div class="category">
+                <div>
+                    <input type="checkbox" name="category" id="category1">
+                    <label for="category1">Category</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="category" id="category2">
+                    <label for="category2">Category</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="category" id="category3">
+                    <label for="category3">Category</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="category" id="category4">
+                    <label for="category4">Category</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="category" id="category5">
+                    <label for="category5">Category</label>
+                </div>
+            </div>
+
+            <div class="search">
+                <input type="search" name="search" id="search">
+                <button type="submit">search</button>
+            </div>
+        </form>
+
+        <div class="prueba">
+
+            <!-- <article class="events"> -->
+                <div class="card">
+                    <img src="./assets/img/Museum_Tour.jpg" alt="Museum tour">
+                    <h3>Titulo</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                    <div class="card-foot">
+                        <p>Price: 2000</p>
+                        <a href="">More...</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="./assets/img/Costume_Party.jpg" alt="Costume party">
+                    <h3>Titulo</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                    <div class="card-foot">
+                        <p>Price: 2000</p>
+                        <a href="">More...</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="./assets/img/Food_Fair.jpg" alt="Food fair">
+                    <h3>Titulo</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                    <div class="card-foot">
+                        <p>Price: 2000</p>
+                        <a href="">More...</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="./assets/img/Music_Concert.jpg" alt="Music concert">
+                    <h3>Titulo</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                    <div class="card-foot">
+                        <p>Price: 2000</p>
+                        <a href="">More...</a>
+                    </div>
+                </div>
+            <!-- </article> -->
+        </div>
     </main>
     <footer>
-
+        <div class="social">
+            <a href="https://www.instagram.com/"><img src="assets/img/instagram.png" alt="Link instagram"></a>
+            <div class="fcb">
+                <a href="https://es-la.facebook.com/"><img src="./assets/img/facebook.png" alt="Link facebook"></a>
+            </div>
+            
+            <a href="https://www.whatsapp.com/"><img src="./assets/img/whatsapp.png" alt="Link whatsapp"></a>
+        </div>
+        <h3>Cohort</h3>
     </footer>
 
 <script src="scripts.js"></script>
