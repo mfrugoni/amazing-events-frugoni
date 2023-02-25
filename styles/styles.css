@@ -127,6 +127,21 @@ main {
     border: none;
 }
 
+#box {
+    width: 100%;
+    min-height: 65vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.custom {
+    min-height: 75vh;
+}
+
 .card {
     width: 12rem;
     display: flex;
@@ -225,21 +240,6 @@ main {
 
 .detail li {
     color: #36011a;
-}
-
-.prueba {
-    width: 100%;
-    min-height: 65vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 1rem;
-}
-
-.custom {
-    min-height: 75vh;
 }
 
 /* stats */
