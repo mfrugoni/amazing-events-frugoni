@@ -156,7 +156,7 @@ main {
 }
 
 .card:hover {
-    transform: scale(1.020);
+    /* transform: scale(1.020); */
     box-shadow: 3px 6px 11px 0px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 3px 6px 11px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 3px 6px 11px 0px rgba(0, 0, 0, 0.75);
