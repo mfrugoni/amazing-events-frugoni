@@ -115,9 +115,13 @@ main {
     align-items: center;
 }
 
-.search input,
-.category input {
+.search input {
     border-color: #8b0243;
+}
+
+input #category1{
+    border: 2px inset #8b0243;
+    border-radius: 0;
 }
 
 .search button {
@@ -127,6 +131,7 @@ main {
     border: none;
 }
 
+/* cards container */
 #box {
     width: 100%;
     min-height: 65vh;
@@ -135,21 +140,19 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
-    gap: 1rem;
-}
-
-.custom {
-    min-height: 75vh;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 .card {
-    width: 12rem;
+    width: 15rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
-    height: fit-content;
-    padding: 1rem 0.5rem;
+    justify-content: space-around;
+    height: 28rem;
+    padding: 1rem 1rem;
     color: #8b0243;
     text-align: center;
     background-color: #fce6f0;
@@ -163,25 +166,36 @@ main {
 }
 
 .card>img {
-    width: 150px;
-    height: 100px;
+    border: 5px solid #8b0243;
+    width: 12rem;
+    height: 7rem;
     object-fit: cover;
 }
 
-.card>p {
+p.date {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
 
+p.desc{
+    height: 76px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    overflow: hidden;
+    text-align: left;
+}
+
 .card>h3 {
+    font-size: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
 
 .card-foot {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     align-content: space-between;
     font-size: 0.9rem;
@@ -190,14 +204,15 @@ main {
 .card-foot>a {
     text-decoration: none;
     background-color: #e0046c;
-    padding: 0.2rem 0.5rem;
+    padding: 0.5rem 1rem;
     color: #fff;
     text-align: center;
     border-radius: 0.3rem;
+    font-size: 1.1rem;
 }
 
 .card-foot>p {
-    padding-right: 1rem;
+    padding: 0.5rem;
 }
 
 /* contact */
@@ -214,7 +229,7 @@ main {
 
 .contact input,
 .contact textarea {
-    border-color: #8b0243;
+    border: 2px inset #8b0243;
 }
 
 .contact button {
@@ -268,10 +283,6 @@ tr {
 .heading,
 thead tr {
     background-color: #fce6f0;
-}
-
-.tabla {
-    padding: 1rem 0rem;
 }
 
 /* footer */
