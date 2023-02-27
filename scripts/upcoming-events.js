@@ -25,7 +25,7 @@ function createCards(dataArray) {
     <img src="${event.image}">
     <h3>${event.name}</h3>
     <p class="date">Date: ${event.date}</p>
-    <p class="desc">Description: ${event.description}</p>
+    <p class="desc">${event.description}</p>
     <div class="card-foot">
         <p>Price: ${event.price}</p>
         <a href="./details.html">More...</a>
