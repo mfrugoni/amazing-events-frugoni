@@ -52,7 +52,7 @@ let arrCategory = [];
 for(let event of data.events){
   arrCategory.push(event.category)
 }
-console.log(`arrCategory ${arrCategory}`);
+// console.log(`arrCategory ${arrCategory}`);
 //Iterates the categories array and saves the non-repeating categories in a new array:
 let aECategoriesArray = [];
 
@@ -64,7 +64,7 @@ arrCategory.forEach(category =>{
 //Sorts the resulting array
 aECategoriesArray.sort()
 
-console.log(`aECategoriesArray:  ${aECategoriesArray}`)
+// console.log(`aECategoriesArray:  ${aECategoriesArray}`)
 
 //Creates the checkboxes by passing the resulting array to the function create:
 function createCategoriesCheckBox(categoriesArray){
@@ -80,6 +80,5 @@ function createCategoriesCheckBox(categoriesArray){
 }
 
 const form = document.querySelector(".category");
-console.log(form);
 form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
-console.log(createCategoriesCheckBox(aECategoriesArray));
+// console.log(createCategoriesCheckBox(aECategoriesArray));
