@@ -38,16 +38,18 @@
             <a class="flecha" href="./past-events.html">></a>
         </div>
 
-        <form class="top-form">
+        <div class="top-form">
             <div class="category">
-                <!-- Here the inputs are dynamically loaded from index.js -->
+                <!-- Here the inputs are dynamically loaded from upcomig-events.js -->
             </div>
 
             <div class="search">
-                <input type="search" name="search" id="search">
-                <button type="submit" title="search"><i class="bi bi-search"></i></button>
+                <label for="card-search">
+                    <input type="text" name="card-search" id="card-search">
+                </label>
+                <button type="submit" title="search">search</button>
             </div>
-        </form>
+        </div>
 
         <div id="box">
             <!-- Here the cards are dynamically loaded from upcoming-events.js -->

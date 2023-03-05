@@ -66,7 +66,7 @@ const cardSearch = document.getElementById("card-search")
 
 cardSearch.addEventListener("change", () =>{
 
-    filteredEvents = data.events.filter((evento) => 
+    let filteredEvents = data.events.filter((evento) => 
     evento.name.toLowerCase().includes(cardSearch.value.toLowerCase()))
     
     box.innerHTML = createCards(filteredEvents);

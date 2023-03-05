@@ -82,5 +82,14 @@ const form = document.querySelector(".category");
 form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
 // console.log(createCategoriesCheckBox(aECategoriesArray));
 
+//search input//
+const cardSearch = document.getElementById("card-search")
 
+cardSearch.addEventListener("change", () =>{
+
+    let filteredEvents = futureEvents.filter((evento) => 
+    evento.name.toLowerCase().includes(cardSearch.value.toLowerCase()))
+    
+    box.innerHTML = createCards(filteredEvents);
+})
 
