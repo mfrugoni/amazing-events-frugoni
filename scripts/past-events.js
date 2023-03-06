@@ -1,5 +1,6 @@
 console.log("Past Events");
 
+//----Cards----//
 //Declaration of the arrays where past and future events will be stored:
 let pastEvents = [];
 let futureEvents = [];
@@ -83,10 +84,10 @@ const form = document.querySelector(".category");
 form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
 // console.log(createCategoriesCheckBox(aECategoriesArray));
 
-//search input//
+//----Search input----//
 const cardSearch = document.getElementById("card-search")
 
-cardSearch.addEventListener("change", () =>{
+cardSearch.addEventListener("keyup", () =>{
 
     let filteredEvents = pastEvents.filter((evento) => 
     evento.name.toLowerCase().includes(cardSearch.value.toLowerCase()))
