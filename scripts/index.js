@@ -1,12 +1,15 @@
 console.log("Index");
+console.log([document]);
 
 //----Cards----//
 //Function that creates the card templates in string format:
 function createCards(dataArray) {
+
     let cardString = ``;
 
-    for (let event of dataArray) {
-        cardString += `<div class="card">
+    if (dataArray.length > 0) {
+        for (let event of dataArray) {
+            cardString += `<div class="card">
     <img src="${event.image}">
     <h3>${event.name}</h3>
     <p class="date">Date: ${event.date}</p>
@@ -17,6 +20,12 @@ function createCards(dataArray) {
     </div>
 </div>
 `
+        }
+    }
+    else {
+        cardString += `<p>🔭We're sorry, but your search didn't match any result. 
+    Please try again with different search keys.</p>
+    `
     }
     return cardString;
 }
@@ -72,9 +81,3 @@ cardSearch.addEventListener("keyup", () =>{
     
     box.innerHTML = createCards(filteredEvents);
 })
-
-//----Search checkboxes----//
-// aECategoriesArray.forEach(category =>{
-//     categoryLow = category.yol
-//     const category = document.getElementById(`${category.toLowerCase()}`)
-// })
