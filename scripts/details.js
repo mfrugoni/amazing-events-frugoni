@@ -29,9 +29,16 @@ const detailString = `
 `;
 
 const assistance = `<li><span class="li-title">Assistance:</span> ${evento.assistance}.</li>
+<li><a href="javascript:history.back()">Back</a></li>
 </ul>
 </div>`;
+
 const estimate = `<li><span class="li-title">Estimate:</span> ${evento.estimate}</li>
+<li><a href="javascript:history.back()">Back</a></li>
+</ul>
+</div>`;
+
+const defecto = `<li><a href="javascript:history.back()">Back</a></li>
 </ul>
 </div>`;
 
@@ -42,10 +49,5 @@ else if(evento.estimate != undefined){
     detail.innerHTML = detailString + estimate;
 }
 else{
-    detail.innerHTML = detailString;
+    detail.innerHTML = detailString + defecto;
 }
-
-
-
-// <li>Assistance: ${evento.assistance}</li>
-// 

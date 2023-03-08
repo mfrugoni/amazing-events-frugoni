@@ -20,18 +20,28 @@ function filterEvents(dataArray) {
 
 //Function that creates the card templates in string format:
 function createCards(dataArray) {
+
     let cardString = ``;
-    for (let event of dataArray) {
-        cardString += `<div class="card">
+
+    if (dataArray.length > 0) {
+        for (let event of dataArray) {
+            cardString += `<div class="card">
     <img src="${event.image}">
     <h3>${event.name}</h3>
     <p class="date">Date: ${event.date}</p>
     <p class="desc">${event.description}</p>
     <div class="card-foot">
         <p>Price: $${event.price}.-</p>
-        <a href="./details.html?id=${event._id}">More...</a>    </div>
+        <a href="./details.html?id=${event._id}">More...</a>
+    </div>
 </div>
 `
+        }
+    }
+    else {
+        cardString += `<p>🔭We're sorry, but your search didn't match any result. 
+    Please try again with different search keys.</p>
+    `
     }
     return cardString;
 }

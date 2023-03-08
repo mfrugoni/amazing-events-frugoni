@@ -72,12 +72,78 @@ form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
 // console.log(createCategoriesCheckBox(aECategoriesArray));
 
 //----Search input----//
-const cardSearch = document.getElementById("card-search")
+const searchBar = document.getElementById("search-bar")
 
-cardSearch.addEventListener("keyup", () =>{
+let searchBarEvents = [];
 
-    let filteredEvents = data.events.filter((evento) => 
-    evento.name.toLowerCase().includes(cardSearch.value.toLowerCase()))
-    
-    box.innerHTML = createCards(filteredEvents);
+let checkedCats = [];
+
+let searchCheckedEvents = [];
+
+let bufferEvents = [];
+
+searchBar.addEventListener("keyup", () => {
+
+    if (checkedCats.length == 0) {
+        searchBarEvents = data.events.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+    }
+    else {
+        console.log("buffer", bufferEvents);
+        searchBarEvents = bufferEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+            console.log("searchbarev", searchBarEvents);
+    }
+
+    box.innerHTML = createCards(searchBarEvents);
+})
+
+form.addEventListener("click", (e) => {//ok
+    if (e.target.checked != undefined) {
+        if (e.target.checked) {
+            checkedCats.push(e.target.value)
+        }
+        else {
+            let index = checkedCats.indexOf(e.target.value)
+            if (index != -1) {
+                checkedCats.splice(index, 1)
+                console.log("checkout");
+                
+            }
+        }
+    }
+    let checkedEvents = [];
+    console.log(checkedCats);
+    console.log("1", checkedEvents);
+    for (let cat of checkedCats) {
+        for (let event of data.events) {
+
+            if (event.category.toLowerCase().includes(cat)) {
+
+                checkedEvents.push(event);
+
+            }
+        }
+    }
+
+    if (searchBar.value == 0) {
+        
+        console.log("2", checkedEvents);
+        box.innerHTML = createCards(checkedEvents);
+
+    }
+    else {
+        searchCheckedEvents = checkedEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+            box.innerHTML = createCards(searchCheckedEvents);
+    }
+
+    bufferEvents = checkedEvents.map((evento) => evento);
+
+    if(checkedCats.length === 0){
+        console.log("parche");
+        box.innerHTML = createCards(data.events);
+    }
+
 })
