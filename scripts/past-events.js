@@ -20,18 +20,28 @@ function filterEvents(dataArray) {
 
 //Function that creates the card templates in string format:
 function createCards(dataArray) {
+
     let cardString = ``;
-    for (let event of dataArray) {
-        cardString += `<div class="card">
+
+    if (dataArray.length > 0) {
+        for (let event of dataArray) {
+            cardString += `<div class="card">
     <img src="${event.image}">
     <h3>${event.name}</h3>
     <p class="date">Date: ${event.date}</p>
     <p class="desc">${event.description}</p>
     <div class="card-foot">
         <p>Price: $${event.price}.-</p>
-        <a href="./details.html?id=${event._id}">More...</a>    </div>
+        <a href="./details.html?id=${event._id}">More...</a>
+    </div>
 </div>
 `
+        }
+    }
+    else {
+        cardString += `<p>🔭We're sorry, but your search didn't match any result. 
+    Please try again with different search keys.</p>
+    `
     }
     return cardString;
 }
@@ -84,12 +94,78 @@ form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
 // console.log(createCategoriesCheckBox(aECategoriesArray));
 
 //----Search input----//
-const cardSearch = document.getElementById("card-search")
+const searchBar = document.getElementById("search-bar")
 
-cardSearch.addEventListener("keyup", () =>{
+let searchBarEvents = [];
 
-    let filteredEvents = pastEvents.filter((evento) => 
-    evento.name.toLowerCase().includes(cardSearch.value.toLowerCase()))
-    
-    box.innerHTML = createCards(filteredEvents);
+let checkedCats = [];
+
+let searchCheckedEvents = [];
+
+let bufferEvents = [];
+
+searchBar.addEventListener("keyup", () => {
+
+    if (checkedCats.length == 0) {
+        searchBarEvents = pastEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+    }
+    else {
+        console.log("buffer", bufferEvents);
+        searchBarEvents = bufferEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+            console.log("searchbarev", searchBarEvents);
+    }
+
+    box.innerHTML = createCards(searchBarEvents);
+})
+
+form.addEventListener("click", (e) => {//ok
+    if (e.target.checked != undefined) {
+        if (e.target.checked) {
+            checkedCats.push(e.target.value)
+        }
+        else {
+            let index = checkedCats.indexOf(e.target.value)
+            if (index != -1) {
+                checkedCats.splice(index, 1)
+                console.log("checkout");
+                
+            }
+        }
+    }
+    let checkedEvents = [];
+    console.log(checkedCats);
+    console.log("1", checkedEvents);
+    for (let cat of checkedCats) {
+        for (let event of pastEvents) {
+
+            if (event.category.toLowerCase().includes(cat)) {
+
+                checkedEvents.push(event);
+
+            }
+        }
+    }
+
+    if (searchBar.value == 0) {
+        
+        console.log("2", checkedEvents);
+        box.innerHTML = createCards(checkedEvents);
+
+    }
+    else {
+        searchCheckedEvents = checkedEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+            box.innerHTML = createCards(searchCheckedEvents);
+    }
+
+    bufferEvents = checkedEvents.map((evento) => evento);
+
+    if(checkedCats.length === 0){
+        console.log("parche");
+        box.innerHTML = createCards(pastEvents);
+    }
+
 })
