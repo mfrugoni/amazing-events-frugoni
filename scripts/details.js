@@ -19,17 +19,33 @@ const detailString = `
 
 <div class="detail-list">
     <ul>
-        <li>Name: ${evento.name}</li>
-        <li>Category: ${evento.category}</li>
-        <li>Date: ${evento.date}</li>
-        <li>Description: ${evento.description}</li>
-        <li>Place: ${evento.place}</li>
-        <li>Price: ${evento.price}</li>
-        <li>Capacity: ${evento.capacity}</li>
-        <li>Assistance: ${evento.assistance}</li>
-        <li>Estimate: ${evento.estimate}</li>
-    </ul>
-</div>
+        <li><span class="li-title">Name:</span> ${evento.name}.</li>
+        <li><span class="li-title">Category:</span> ${evento.category}.</li>
+        <li><span class="li-title">Date:</span> ${evento.date}.</li>
+        <li><span class="li-title">Description:</span> ${evento.description}.</li>
+        <li><span class="li-title">Place:</span> ${evento.place}.</li>
+        <li><span class="li-title">Price:</span> $ ${evento.price}.-</li>
+        <li><span class="li-title">Capacity:</span> ${evento.capacity}.</li>
+`;
 
-`
-detail.innerHTML = detailString;
+const assistance = `<li><span class="li-title">Assistance:</span> ${evento.assistance}.</li>
+</ul>
+</div>`;
+const estimate = `<li><span class="li-title">Estimate:</span> ${evento.estimate}</li>
+</ul>
+</div>`;
+
+if(evento.assistance != undefined){
+    detail.innerHTML = detailString + assistance;
+}
+else if(evento.estimate != undefined){
+    detail.innerHTML = detailString + estimate;
+}
+else{
+    detail.innerHTML = detailString;
+}
+
+
+
+// <li>Assistance: ${evento.assistance}</li>
+// 

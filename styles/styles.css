@@ -248,9 +248,8 @@ p.desc {
     height: fit-content;
     max-width: 90%;
     display: flex;
-    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     gap: 2rem;
     padding: 2rem;
@@ -259,6 +258,10 @@ p.desc {
 
 .detail li {
     color: #36011a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5rem;
+    
 }
 
 .detail img {
@@ -267,6 +270,12 @@ p.desc {
     width: 20rem;
     height: 11rem;
     object-fit: cover;
+}
+.detail-list{
+    max-width: 60%;
+}
+.detail-list li>span{
+    font-weight: bold;
 }
 
 
