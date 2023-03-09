@@ -22,9 +22,9 @@ function createCards(dataArray) {
         }
     }
     else {
-        cardString += `<p>🔭We're sorry, but your search didn't match any result. 
-    Please try again with different search keys.</p>
-    `
+        cardString += `<p>We are sorry. Your search 🔭 did not return any results.😢 
+        Please try again with other information 😎 Or... you can visit 
+        <a href="./upcoming-events.html">THIS</a> awesome events we got for you!</p>`
     }
     return cardString;
 }
@@ -138,7 +138,7 @@ form.addEventListener("click", (e) => {
     if(checkedCats.length === 0){
 
         box.innerHTML = createCards(data.events);
-        
+
     }
 
 })
