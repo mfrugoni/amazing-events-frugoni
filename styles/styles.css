@@ -347,7 +347,7 @@ footer {
     font-size: 1.3rem;
 }
 
-@media screen and (max-width:1110px){
+@media screen and (max-width:1110px) {
     .detail {
         text-align: center;
     }
@@ -367,7 +367,8 @@ footer {
     #box {
         padding: 1rem;
     }
-    .detail-list{
+
+    .detail-list {
         max-width: 95%;
     }
 
