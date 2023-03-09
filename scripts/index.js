@@ -1,5 +1,4 @@
 console.log("Index");
-console.log([document]);
 
 //----Cards----//
 //Function that creates the card templates in string format:
@@ -30,7 +29,6 @@ function createCards(dataArray) {
     return cardString;
 }
 
-// console.log(createCards(data.events));
 //Capture the html element where we want to put the cards:
 const box = document.getElementById("box");
 //Create the cards and put them inside the captured element:
@@ -69,9 +67,8 @@ function createCategoriesCheckBox(categoriesArray){
 
 const form = document.querySelector(".category");
 form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
-// console.log(createCategoriesCheckBox(aECategoriesArray));
 
-//----Search input----//
+//----Search----//
 const searchBar = document.getElementById("search-bar")
 
 let searchBarEvents = [];
@@ -82,6 +79,8 @@ let searchCheckedEvents = [];
 
 let bufferEvents = [];
 
+//----Search input----//
+
 searchBar.addEventListener("keyup", () => {
 
     if (checkedCats.length == 0) {
@@ -89,16 +88,14 @@ searchBar.addEventListener("keyup", () => {
             evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
     }
     else {
-        console.log("buffer", bufferEvents);
         searchBarEvents = bufferEvents.filter((evento) =>
             evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
-            console.log("searchbarev", searchBarEvents);
     }
 
     box.innerHTML = createCards(searchBarEvents);
 })
 
-form.addEventListener("click", (e) => {//ok
+form.addEventListener("click", (e) => {
     if (e.target.checked != undefined) {
         if (e.target.checked) {
             checkedCats.push(e.target.value)
@@ -107,14 +104,12 @@ form.addEventListener("click", (e) => {//ok
             let index = checkedCats.indexOf(e.target.value)
             if (index != -1) {
                 checkedCats.splice(index, 1)
-                console.log("checkout");
                 
             }
         }
     }
     let checkedEvents = [];
-    console.log(checkedCats);
-    console.log("1", checkedEvents);
+
     for (let cat of checkedCats) {
         for (let event of data.events) {
 
@@ -128,7 +123,6 @@ form.addEventListener("click", (e) => {//ok
 
     if (searchBar.value == 0) {
         
-        console.log("2", checkedEvents);
         box.innerHTML = createCards(checkedEvents);
 
     }
@@ -142,8 +136,9 @@ form.addEventListener("click", (e) => {//ok
     bufferEvents = checkedEvents.map((evento) => evento);
 
     if(checkedCats.length === 0){
-        console.log("parche");
+
         box.innerHTML = createCards(data.events);
+        
     }
 
 })

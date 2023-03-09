@@ -48,7 +48,6 @@ function createCards(dataArray) {
 
 //Function call to filter the events:
 filterEvents(data.events);
-// console.log(pastEvents);
 
 //Capture the html element where we want to put the cards:
 const box = document.getElementById("box");
@@ -62,7 +61,7 @@ let arrCategory = [];
 for(let event of data.events){
   arrCategory.push(event.category)
 }
-// console.log(`arrCategory ${arrCategory}`);
+
 //Iterates the categories array and saves the non-repeating categories in a new array:
 let aECategoriesArray = [];
 
@@ -73,8 +72,6 @@ arrCategory.forEach(category =>{
 })
 //Sorts the resulting array
 aECategoriesArray.sort()
-
-// console.log(`aECategoriesArray:  ${aECategoriesArray}`)
 
 //Creates the checkboxes by passing the resulting array to the function create:
 function createCategoriesCheckBox(categoriesArray){
@@ -91,9 +88,8 @@ function createCategoriesCheckBox(categoriesArray){
 
 const form = document.querySelector(".category");
 form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
-// console.log(createCategoriesCheckBox(aECategoriesArray));
 
-//----Search input----//
+//----Search----//
 const searchBar = document.getElementById("search-bar")
 
 let searchBarEvents = [];
@@ -104,6 +100,8 @@ let searchCheckedEvents = [];
 
 let bufferEvents = [];
 
+//----Search input----//
+
 searchBar.addEventListener("keyup", () => {
 
     if (checkedCats.length == 0) {
@@ -111,16 +109,18 @@ searchBar.addEventListener("keyup", () => {
             evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
     }
     else {
-        console.log("buffer", bufferEvents);
+
         searchBarEvents = bufferEvents.filter((evento) =>
             evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
-            console.log("searchbarev", searchBarEvents);
+
     }
 
     box.innerHTML = createCards(searchBarEvents);
 })
 
-form.addEventListener("click", (e) => {//ok
+//---Checkboxes---//
+
+form.addEventListener("click", (e) => {
     if (e.target.checked != undefined) {
         if (e.target.checked) {
             checkedCats.push(e.target.value)
@@ -129,14 +129,12 @@ form.addEventListener("click", (e) => {//ok
             let index = checkedCats.indexOf(e.target.value)
             if (index != -1) {
                 checkedCats.splice(index, 1)
-                console.log("checkout");
                 
             }
         }
     }
     let checkedEvents = [];
-    console.log(checkedCats);
-    console.log("1", checkedEvents);
+
     for (let cat of checkedCats) {
         for (let event of pastEvents) {
 
@@ -150,7 +148,6 @@ form.addEventListener("click", (e) => {//ok
 
     if (searchBar.value == 0) {
         
-        console.log("2", checkedEvents);
         box.innerHTML = createCards(checkedEvents);
 
     }
@@ -164,8 +161,9 @@ form.addEventListener("click", (e) => {//ok
     bufferEvents = checkedEvents.map((evento) => evento);
 
     if(checkedCats.length === 0){
-        console.log("parche");
+
         box.innerHTML = createCards(pastEvents);
+        
     }
 
 })
