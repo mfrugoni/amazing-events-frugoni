@@ -307,7 +307,7 @@ td {
 .top {
     font-size: 1.2em;
     background-color: #8b0243;
-    color: #e0046c;
+    color: #fce6f0;
 }
 
 tr {
@@ -316,7 +316,7 @@ tr {
 
 .heading,
 thead tr {
-    background-color: #fce6f0;
+    background-color: #e0046c;
 }
 
 /* footer */

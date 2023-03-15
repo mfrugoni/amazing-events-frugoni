@@ -3,22 +3,6 @@ console.log("Past Events");
 let urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
 
 //----Cards----//
-//Declaration of the arrays where past and future events will be stored:
-let pastEvents = [];
-let futureEvents = [];
-
-//Function that filters past and future events based on currentDate:
-function filterEvents(eventsArray, date) {
-
-    for (let event of eventsArray) {
-        if (event.date < date) {
-            pastEvents.push(event);
-        }
-        else if (event.date >= date) {
-            futureEvents.push(event);
-        }
-    }
-}
 
 //Function that creates the card templates in string format:
 function createCards(dataArray) {
@@ -109,10 +93,10 @@ fetch(urlApi)
     .then(response => response.json())
     .then(data => {
 
-        //Function call to filter the events:
-        filterEvents(data.events, data.currentDate);
+        //Filter the events by date:
+        let pastEvents = data.events.filter((event) => event.date < data.currentDate);
 
-        // console.log(pastEvents);
+        console.log(pastEvents);
         console.log(data.currentDate);
 
         //Create the cards and put them inside the captured element:
