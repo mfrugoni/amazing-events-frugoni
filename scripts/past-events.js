@@ -23,7 +23,6 @@ function createCards(dataArray) {
 
     let cardString = ``;
 
-    if (dataArray.length > 0) {
         for (let event of dataArray) {
             cardString += `<div class="card">
     <img src="${event.image}">
@@ -37,44 +36,25 @@ function createCards(dataArray) {
 </div>
 `
         }
-    }
-    else {
-        cardString += `<p>We are sorry. Your search 🔭 did not return any results.😢 
-        Please try again with other information 😎 Or... you can visit 
-        <a href="./upcoming-events.html">THIS</a> awesome events we got for you!</p>`
-    }
+
     return cardString;
 }
 
+//Function that creates the array of categories to render:
+function filterArrayCat(dataArray){
 
-//Function call to filter the events:
-filterEvents(data.events);
+    let aECategoriesArray = [];
 
-//Capture the html element where we want to put the cards:
-const box = document.getElementById("box");
-//Create the cards and put them inside the captured element:
-box.innerHTML = createCards(pastEvents);
+    dataArray.forEach(event => {
+        if (!aECategoriesArray.includes(event.category)) {
+            aECategoriesArray.push(event.category)
+        }
+    })
 
-//----Categories----//
-//Creates an array of categories iterating data.events:
-let arrCategory = [];
-
-for(let event of data.events){
-  arrCategory.push(event.category)
+    return aECategoriesArray.sort();
 }
 
-//Iterates the categories array and saves the non-repeating categories in a new array:
-let aECategoriesArray = [];
-
-arrCategory.forEach(category =>{
-  if (!aECategoriesArray.includes(category)){
-    aECategoriesArray.push(category)
-  }
-})
-//Sorts the resulting array
-aECategoriesArray.sort()
-
-//Creates the checkboxes by passing the resulting array to the function create:
+//Function that creates the checkboxes by passing the filtered categories array:
 function createCategoriesCheckBox(categoriesArray){
     let categoriesString = "";
     for (const category of categoriesArray){
@@ -87,8 +67,49 @@ function createCategoriesCheckBox(categoriesArray){
     return categoriesString;
 }
 
+function createFoundedCards(foundedDataArray){
+
+    let cardString = ``;
+
+    if (foundedDataArray.length > 0) {
+        for (let event of foundedDataArray) {
+            cardString += `<div class="card">
+    <img src="${event.image}">
+    <h3>${event.name}</h3>
+    <p>Date: ${event.date}</p>
+    <p>Description: ${event.description} </p>
+    <div class="card-foot">
+        <p>Price: ${event.price}</p>
+        <a href="">More...</a>
+    </div>
+</div>
+`
+        }
+    }
+
+else {
+    cardString += `<p>We are sorry. Your search 🔭 did not return any results.😢 
+    Please try again with other information 😎 Or... you can visit 
+    <a href="./upcoming-events.html">THIS</a> awesome events we got for you!</p>`
+}
+
+    return cardString;
+
+}
+
+//Function call to filter the events:
+filterEvents(data.events);
+
+//Capture the html element where we want to put the cards:
+const box = document.getElementById("box");
+//Create the cards and put them inside the captured element:
+box.innerHTML = createCards(pastEvents);
+
+//Capture the html element where we want to put the categories:
 const form = document.querySelector(".category");
-form.innerHTML = createCategoriesCheckBox(aECategoriesArray);
+//Create the categories inputs and put them inside the captured element:
+form.innerHTML = createCategoriesCheckBox(filterArrayCat(data.events));
+
 
 //----Search----//
 const searchBar = document.getElementById("search-bar")
@@ -116,7 +137,7 @@ searchBar.addEventListener("keyup", () => {
 
     }
 
-    box.innerHTML = createCards(searchBarEvents);
+    box.innerHTML = createFoundedCards(searchBarEvents);
 })
 
 //---Checkboxes---//
@@ -149,22 +170,27 @@ form.addEventListener("click", (e) => {
 
     if (searchBar.value == 0) {
         
-        box.innerHTML = createCards(checkedEvents);
+        box.innerHTML = createFoundedCards(checkedEvents);
 
     }
     else {
         searchCheckedEvents = checkedEvents.filter((evento) =>
             evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
 
-            box.innerHTML = createCards(searchCheckedEvents);
+            box.innerHTML = createFoundedCards(searchCheckedEvents);
     }
 
     bufferEvents = checkedEvents.map((evento) => evento);
 
-    if(checkedCats.length === 0){
+    if (checkedCats.length === 0 && searchBar.value == 0) {
 
         box.innerHTML = createCards(pastEvents);
+    }
+    else if(checkedCats.length === 0 && searchBar.value != 0){
+        searchBarEvents = pastEvents.filter((evento) =>
+            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
 
+            box.innerHTML = createFoundedCards(searchBarEvents);
     }
 
 })
