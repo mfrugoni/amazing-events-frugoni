@@ -1,5 +1,7 @@
 console.log("Index");
 
+let urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
+
 //----Cards----//
 //Function that creates the card templates in string format:
 function createCards(dataArray) {
@@ -52,6 +54,7 @@ function createCategoriesCheckBox(categoriesArray){
     return categoriesString;
 }
 
+//Function that creates the cards of the founded events:
 function createFoundedCards(foundedDataArray){
 
     let cardString = ``;
@@ -84,14 +87,18 @@ else {
 
 //Capture the html element where we want to put the cards:
 const box = document.getElementById("box");
+//Capture the html element where we want to put the categories:
+const form = document.querySelector(".category");
+
+
+fetch(urlApi)
+    .then(response => response.json())
+    .then(data => {
 //Create the cards and put them inside the captured element:
 box.innerHTML = createCards(data.events);
 
-//Capture the html element where we want to put the categories:
-const form = document.querySelector(".category");
 //Create the categories inputs and put them inside the captured element:
 form.innerHTML = createCategoriesCheckBox(filterArrayCat(data.events));
-
 
 //----Search----//
 const searchBar = document.getElementById("search-bar")
@@ -173,4 +180,9 @@ form.addEventListener("click", (e) => {
             box.innerHTML = createFoundedCards(searchBarEvents);
     }
 
+})
+
+})
+.catch(error => {
+    console.log(`Mi error: ${error}`);
 })

@@ -1,18 +1,20 @@
 console.log("Upcoming Events");
 
+let urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
+
 //----Cards----//
 //Declaration of the arrays where past and future events will be stored:
 let pastEvents = [];
 let futureEvents = [];
 
 //Function that filters past and future events based on currentDate:
-function filterEvents(dataArray) {
+function filterEvents(eventsArray, date) {
 
-    for (let event of dataArray) {
-        if (event.date < data.currentDate) {
+    for (let event of eventsArray) {
+        if (event.date < date) {
             pastEvents.push(event);
         }
-        else if (event.date >= data.currentDate) {
+        else if (event.date >= date) {
             futureEvents.push(event);
         }
     }
@@ -67,6 +69,7 @@ function createCategoriesCheckBox(categoriesArray){
     return categoriesString;
 }
 
+//Function that creates the cards of the founded events:
 function createFoundedCards(foundedDataArray){
 
     let cardString = ``;
@@ -97,100 +100,114 @@ else {
 
 }
 
-//Function call to filter the events:
-filterEvents(data.events);
 //Capture the html element where we want to put the cards:
 const box = document.getElementById("box");
-//Create the cards and put them inside the captured element:
-box.innerHTML = createCards(futureEvents);
-
 //Capture the html element where we want to put the categories:
 const form = document.querySelector(".category");
-//Create the categories inputs and put them inside the captured element:
-form.innerHTML = createCategoriesCheckBox(filterArrayCat(data.events));
 
+fetch(urlApi)
+    .then(response => response.json())
+    .then(data => {
 
-//----Search----//
-const searchBar = document.getElementById("search-bar")
+        //Function call to filter the events:
+        filterEvents(data.events, data.currentDate);
 
-let searchBarEvents = [];
+        // console.log(futureEvents);
+        // console.log(data.currentDate);
 
-let checkedCats = [];
-
-let searchCheckedEvents = [];
-
-let bufferEvents = [];
-
-//----Search input----//
-
-searchBar.addEventListener("keyup", () => {
-
-    if (checkedCats.length == 0) {
-        searchBarEvents = futureEvents.filter((evento) =>
-            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
-    }
-    else {
-
-        searchBarEvents = bufferEvents.filter((evento) =>
-            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
- 
-    }
-
-    box.innerHTML = createFoundedCards(searchBarEvents);
-})
-
-//---Checkboxes---//
-
-form.addEventListener("click", (e) => {//ok
-    if (e.target.checked != undefined) {
-        if (e.target.checked) {
-            checkedCats.push(e.target.value)
-        }
-        else {
-            let index = checkedCats.indexOf(e.target.value)
-            if (index != -1) {
-                checkedCats.splice(index, 1)
-                
-            }
-        }
-    }
-    let checkedEvents = [];
-
-    for (let cat of checkedCats) {
-        for (let event of futureEvents) {
-
-            if (event.category.toLowerCase().includes(cat)) {
-
-                checkedEvents.push(event);
-
-            }
-        }
-    }
-
-    if (searchBar.value == 0) {
-        
-        box.innerHTML = createFoundedCards(checkedEvents);
-
-    }
-    else {
-        searchCheckedEvents = checkedEvents.filter((evento) =>
-            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
-
-            box.innerHTML = createFoundedCards(searchCheckedEvents);
-    }
-
-    bufferEvents = checkedEvents.map((evento) => evento);
-
-    if (checkedCats.length === 0 && searchBar.value == 0) {
-
+        //Create the cards and put them inside the captured element:
         box.innerHTML = createCards(futureEvents);
-    }
-    else if(checkedCats.length === 0 && searchBar.value != 0){
-        searchBarEvents = futureEvents.filter((evento) =>
-            evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+        //Create the categories inputs and put them inside the captured element:
+        form.innerHTML = createCategoriesCheckBox(filterArrayCat(data.events));
+
+
+        //----Search----//
+        const searchBar = document.getElementById("search-bar")
+
+        let searchBarEvents = [];
+
+        let checkedCats = [];
+
+        let searchCheckedEvents = [];
+
+        let bufferEvents = [];
+
+        //----Search input----//
+
+        searchBar.addEventListener("keyup", () => {
+
+            if (checkedCats.length == 0) {
+                searchBarEvents = futureEvents.filter((evento) =>
+                    evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+            }
+            else {
+
+                searchBarEvents = bufferEvents.filter((evento) =>
+                    evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+            }
 
             box.innerHTML = createFoundedCards(searchBarEvents);
-    }
+        })
 
-})
+        //---Checkboxes---//
+
+        form.addEventListener("click", (e) => {//ok
+            if (e.target.checked != undefined) {
+                if (e.target.checked) {
+                    checkedCats.push(e.target.value)
+                }
+                else {
+                    let index = checkedCats.indexOf(e.target.value)
+                    if (index != -1) {
+                        checkedCats.splice(index, 1)
+
+                    }
+                }
+            }
+            let checkedEvents = [];
+
+            for (let cat of checkedCats) {
+                for (let event of futureEvents) {
+
+                    if (event.category.toLowerCase().includes(cat)) {
+
+                        checkedEvents.push(event);
+
+                    }
+                }
+            }
+
+            if (searchBar.value == 0) {
+
+                box.innerHTML = createFoundedCards(checkedEvents);
+
+            }
+            else {
+                searchCheckedEvents = checkedEvents.filter((evento) =>
+                    evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+                box.innerHTML = createFoundedCards(searchCheckedEvents);
+            }
+
+            bufferEvents = checkedEvents.map((evento) => evento);
+
+            if (checkedCats.length === 0 && searchBar.value == 0) {
+
+                box.innerHTML = createCards(futureEvents);
+            }
+            else if (checkedCats.length === 0 && searchBar.value != 0) {
+                searchBarEvents = futureEvents.filter((evento) =>
+                    evento.name.toLowerCase().includes(searchBar.value.toLowerCase()))
+
+                box.innerHTML = createFoundedCards(searchBarEvents);
+            }
+
+        })
+
+    })
+    .catch(error => {
+        console.log(`Mi error: ${error}`);
+    })
 
