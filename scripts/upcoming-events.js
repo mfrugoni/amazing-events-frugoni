@@ -96,9 +96,6 @@ fetch(urlApi)
         //Filter the events by date:
         let futureEvents = data.events.filter((event) => event.date >= data.currentDate);
 
-        console.log("upcom: ", futureEvents);
-        console.log("upcom data: ", data.currentDate);
-
         //Create the cards and put them inside the captured element:
         box.innerHTML = createCards(futureEvents);
 

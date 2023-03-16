@@ -16,8 +16,26 @@ function filterArrayCat(dataArray){
     return aECategoriesArray.sort();
 }
 
-function attPercentaje(event){
-    return Math.round(event.assistance * 100 / event.capacity); 
+function orderLowAtt(a, b) {
+    if (a.percentageOfAtt < b.percentageOfAtt){return -1;}
+        
+    if (a.percentageOfAtt > b.percentageOfAtt){return 1;}
+        
+    return 0;
+}
+function orderHiAtt(a, b) {
+    if (a.percentageOfAtt > b.percentageOfAtt){return -1;}
+        
+    if (a.percentageOfAtt < b.percentageOfAtt){return 1;}
+        
+    return 0;
+}
+function orderCapacity(a, b){
+    if (a.capacity > b.capacity){return -1;}
+        
+    if (a.capacity < b.capacity){return 1;}
+        
+    return 0;
 }
 
 
@@ -25,22 +43,35 @@ fetch(urlApi)
     .then(response => response.json())
     .then(data => {
 
-        let bufferEvents = data.events.map((evento) => evento);
-        console.log("buffer events", bufferEvents);
+        console.log(data.events);
 
-        let bufferDate = data.currentDate;
-        console.log("buffer date", bufferDate);
+        let categories = filterArrayCat(data.events);
 
-        let categories = filterArrayCat(bufferEvents);
+        let pastEvents = data.events.filter((event) => event.date < data.currentDate);
 
-        let pastEvents = bufferEvents.filter((event) => event.date < bufferDate);
+        let futureEvents = data.events.filter((event) => event.date >= data.currentDate);
+        
+        //Adds the property Percentage of attendance t the obj in pastEvents array:
+        pastEvents.forEach((event) => {
+            event.percentageOfAtt = (event.assistance * 100 / event.capacity).toFixed(2);
+        })
+        console.log("past ", pastEvents);
 
-        let futureEvents = bufferEvents.filter((event) => event.date >= bufferDate);
+        //Array sorted hi to low:
+        let eventsOrderHigh = pastEvents.map((event) => event);
+        eventsOrderHigh.sort(orderHiAtt);
+        console.log("high", eventsOrderHigh);
+
+        //Array sorted low to hi:
+        let eventsOrderLow = pastEvents.map((event) => event);
+        eventsOrderLow.sort(orderLowAtt);
+        console.log("low", eventsOrderLow);
+
+        let eventsOrderCapacity = pastEvents.map((event) => event);
+        eventsOrderCapacity.sort(orderCapacity);
+        console.log("cap", eventsOrderCapacity);
+
  
-
-
- 
-
 
     })
     .catch(error => {
