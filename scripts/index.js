@@ -68,7 +68,7 @@ function createFoundedCards(foundedDataArray){
     <p>Description: ${event.description} </p>
     <div class="card-foot">
         <p>Price: ${event.price}</p>
-        <a href="">More...</a>
+        <a href="./details.html?id=${event._id}">More...</a>
     </div>
 </div>
 `
