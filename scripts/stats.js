@@ -170,9 +170,10 @@ fetch(urlApi)
             </tr>
         `
 
-        let tInfoTop3;
+        let tInfoTop3 = ``;
+        const rowsToRender = 3;
         
-        for(let i = 0; i < 3; i++){
+        for(let i = 0; i < rowsToRender; i++){
             tInfoTop3 += `
             <tr>
             <td> ${eventsOrderHigh[i].name}: ${eventsOrderHigh[i].percentageOfAtt} % </td>
@@ -182,9 +183,7 @@ fetch(urlApi)
             `
         }
 
-
-
-        let table = ` 
+        let tBodyHeaders2 = `
             <tr class="top">
                 <th colspan="3">Upcoming events statistics by category</th>
             </tr>
@@ -194,42 +193,21 @@ fetch(urlApi)
                 <th>Revenues</th>
                 <th>Percentage of attendance</th>
             </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
+        `
 
+        let upcomigInfo = ``;
+
+        for(let i = 0; i < futureEventsByCat.length; i++){
+            upcomigInfo += `
+            <tr>
+                <td> ${futureEventsByCat[i].category} </td>
+                <td> $ ${futureEventsByCat[i].totalRevenues}.- </td>
+                <td> ${futureEventsByCat[i].mediaPercentage} %</td>
+            </tr>
+            `
+        }
+
+        let tBodyHeaders3 = `
             <tr class="top">
                 <th colspan="3">Past events statistics by category</th>
             </tr>
@@ -239,47 +217,27 @@ fetch(urlApi)
                 <th>Revenues</th>
                 <th>Percentage of attendance</th>
             </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-            <tr>
-                <td>.</td>
-                <td>.</td>
-                <td>.</td>
-            </tr>
-        </tbody>
-    </table>`
+        `;
 
+        let pastInfo = ``;
+
+        for(let i = 0; i < pastEventsByCat.length; i++){
+            pastInfo += `
+            <tr>
+                <td> ${pastEventsByCat[i].category} </td>
+                <td> $ ${pastEventsByCat[i].totalRevenues}.- </td>
+                <td> ${pastEventsByCat[i].mediaPercentage} %</td>
+            </tr>
+            `
+        }
+        pastInfo += `
+        </tbody>
+    </table>
+        `
 
     let box = document.getElementById("box");
-    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 +  table;
+
+    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 + tBodyHeaders2 + upcomigInfo + tBodyHeaders3 + pastInfo;
 
     })
     .catch(error => {
