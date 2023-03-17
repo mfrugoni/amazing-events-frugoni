@@ -50,60 +50,141 @@ fetch(urlApi)
         console.log(data.events);
 
         let categories = filterArrayCat(data.events);
+        console.log("cat", categories);
 
         let pastEvents = data.events.filter((event) => event.date < data.currentDate);
 
         let futureEvents = data.events.filter((event) => event.date >= data.currentDate);
 
-        //Adds the property Percentage of attendance t the obj in pastEvents array:
+        //Adds the property Percentage of attendance to each event in pastEvents array:
         pastEvents.forEach((event) => {
-            event.percentageOfAtt = (event.assistance * 100 / event.capacity).toFixed(2);
+            event.percentageOfAtt = parseFloat((event.assistance * 100 / event.capacity).toFixed(2));
         })
-        console.log("past ", pastEvents);
+        // console.log("past ", pastEvents);
+
+        //Adds the property Percentage estimated to each event in futureEvents array:
+        futureEvents.forEach((event) => {
+            event.percentageEst = parseFloat((event.estimate * 100 / event.capacity).toFixed(2));
+        })
+        // console.log("fut ", futureEvents);
 
         //Array sorted hi to low:
         let eventsOrderHigh = pastEvents.map((event) => event);
         eventsOrderHigh.sort(orderHiAtt);
-        console.log("high", eventsOrderHigh);
+        // console.log("high", eventsOrderHigh);
 
         //Array sorted low to hi:
         let eventsOrderLow = pastEvents.map((event) => event);
         eventsOrderLow.sort(orderLowAtt);
-        console.log("low", eventsOrderLow);
+        // console.log("low", eventsOrderLow);
 
+        //Array sorted by capacity:
         let eventsOrderCapacity = pastEvents.map((event) => event);
         eventsOrderCapacity.sort(orderCapacity);
-        console.log("cap", eventsOrderCapacity);
+        // console.log("cap", eventsOrderCapacity);
+
+        //UPCOMING EVENTS stats by category:
+        let futureEventsByCat = [];
+
+        for (let cat of categories) {
+            let totalRevenues = 0;
+            let percentageSum = 0;
+            let eventCount = 0;
+
+            let eventObj = {};
+            eventObj.category = cat;
+
+            for (let event of futureEvents) {
+                if (event.category.toLowerCase() == cat.toLowerCase()) {
+                    totalRevenues += event.price * event.estimate;
+                    percentageSum += event.percentageEst; 
+                    eventCount ++;
+
+                    // console.log("adentro", percentageSum);
+                }
+            }
+            // console.log("afuera", percentageSum);
+            eventObj.totalRevenues = totalRevenues;
+
+            if(percentageSum != 0){
+                eventObj.mediaPercentage = (percentageSum / eventCount).toFixed(2);
+            }
+            else{
+                eventObj.mediaPercentage = 0;
+            }
+
+            futureEventsByCat.push(eventObj);
+        }
+        console.log("futureEventsByCat: ", futureEventsByCat);
 
 
-        let table = ` <table>
+        //PAST EVENTS stats by category:
+        let pastEventsByCat = [];
+
+        for (let cat of categories) {
+            let totalRevenues = 0;
+            let percentageSum = 0;
+            let eventCount = 0;
+
+            let eventObj = {};
+            eventObj.category = cat;
+
+            for (let event of pastEvents) {
+                if (event.category.toLowerCase() == cat.toLowerCase()) {
+                    totalRevenues += event.price * event.assistance;
+                    percentageSum += event.percentageOfAtt; 
+                    eventCount ++;
+
+                    // console.log("adentro", percentageSum);
+                }
+            }
+            // console.log("afuera", percentageSum);
+            eventObj.totalRevenues = totalRevenues;
+
+            if(percentageSum != 0){
+                eventObj.mediaPercentage = (percentageSum / eventCount).toFixed(2);
+            }
+            else{
+                eventObj.mediaPercentage = 0;
+            }
+
+            pastEventsByCat.push(eventObj);
+        }
+        console.log("pastEventsByCat: ", pastEventsByCat);
+
+
+
+        let tHead = `<table>
         <thead>
             <tr class="top">
                 <th colspan="3">Events Statistics</th>
             </tr>
         </thead>
-        <tbody id="stats">
+        `
+
+        let tBodyHeaders1 = `<tbody id="stats">
             <tr class="heading">
                 <th>Events with the highest percentage of attendance</th>
                 <th>Events with the lowest percentage of attendance</th>
                 <th>Events with larger capacity</th>
             </tr>
-            <tr>
-                <td> ${eventsOrderHigh[0].name}: ${eventsOrderHigh[0].percentageOfAtt} % </td>
-                <td> ${eventsOrderLow[0].name}: ${eventsOrderLow[0].percentageOfAtt} % </td>
-                <td> ${eventsOrderCapacity[0].name}: ${eventsOrderCapacity[0].capacity} people </td>
-            </tr>
-            <tr>
-                <td> ${eventsOrderHigh[1].name}: ${eventsOrderHigh[1].percentageOfAtt} % </td>
-                <td> ${eventsOrderLow[1].name}: ${eventsOrderLow[1].percentageOfAtt} % </td>
-                <td> ${eventsOrderCapacity[1].name}: ${eventsOrderCapacity[1].capacity} people </td>
-            </tr>
-            <tr>
-                <td> ${eventsOrderHigh[2].name}: ${eventsOrderHigh[2].percentageOfAtt} % </td>
-                <td> ${eventsOrderLow[2].name}: ${eventsOrderLow[2].percentageOfAtt} % </td>
-                <td> ${eventsOrderCapacity[2].name}: ${eventsOrderCapacity[2].capacity} people </td>
-            </tr>
+        `
 
+        let tInfoTop3;
+        
+        for(let i = 0; i < 3; i++){
+            tInfoTop3 += `
+            <tr>
+            <td> ${eventsOrderHigh[i].name}: ${eventsOrderHigh[i].percentageOfAtt} % </td>
+            <td> ${eventsOrderLow[i].name}: ${eventsOrderLow[i].percentageOfAtt} % </td>
+            <td> ${eventsOrderCapacity[i].name}: ${eventsOrderCapacity[i].capacity} people </td>
+            </tr>
+            `
+        }
+
+
+
+        let table = ` 
             <tr class="top">
                 <th colspan="3">Upcoming events statistics by category</th>
             </tr>
@@ -112,6 +193,26 @@ fetch(urlApi)
                 <th>Categories</th>
                 <th>Revenues</th>
                 <th>Percentage of attendance</th>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
             </tr>
             <tr>
                 <td>.</td>
@@ -163,12 +264,22 @@ fetch(urlApi)
                 <td>.</td>
                 <td>.</td>
             </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+            </tr>
         </tbody>
     </table>`
 
-    // console.log(table);
+
     let box = document.getElementById("box");
-    box.innerHTML = table;
+    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 +  table;
 
     })
     .catch(error => {
