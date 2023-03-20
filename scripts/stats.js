@@ -18,6 +18,7 @@ function filterArrayCat(dataArray) {
     return aECategoriesArray.sort();
 }
 
+//Order functions for sort method:
 function orderLowAtt(a, b) {
     if (a.percentageOfAtt < b.percentageOfAtt) { return -1; }
 
@@ -49,9 +50,11 @@ fetch(urlApi)
 
         console.log(data.events);
 
+        //Filter categories:
         let categories = filterArrayCat(data.events);
         console.log("cat", categories);
 
+        //Filter events by date:
         let pastEvents = data.events.filter((event) => event.date < data.currentDate);
 
         let futureEvents = data.events.filter((event) => event.date >= data.currentDate);
@@ -66,8 +69,9 @@ fetch(urlApi)
         futureEvents.forEach((event) => {
             event.percentageEst = parseFloat((event.estimate * 100 / event.capacity).toFixed(2));
         })
-        // console.log("fut ", futureEvents);
+        console.log("fut ", futureEvents);
 
+        //TOP Three:
         //Array sorted hi to low:
         let eventsOrderHigh = pastEvents.map((event) => event);
         eventsOrderHigh.sort(orderHiAtt);
@@ -162,7 +166,7 @@ fetch(urlApi)
         </thead>
         `
 
-        let tBodyHeaders1 = `<tbody id="stats">
+        let tBodyHeaders1 = `<tbody>
             <tr class="heading">
                 <th>Events with the highest percentage of attendance</th>
                 <th>Events with the lowest percentage of attendance</th>
@@ -175,7 +179,7 @@ fetch(urlApi)
         
         for(let i = 0; i < rowsToRender; i++){
             tInfoTop3 += `
-            <tr>
+            <tr class ="table">
             <td> ${eventsOrderHigh[i].name}: ${eventsOrderHigh[i].percentageOfAtt} % </td>
             <td> ${eventsOrderLow[i].name}: ${eventsOrderLow[i].percentageOfAtt} % </td>
             <td> ${eventsOrderCapacity[i].name}: ${eventsOrderCapacity[i].capacity} people </td>
@@ -199,7 +203,7 @@ fetch(urlApi)
 
         for(let i = 0; i < futureEventsByCat.length; i++){
             upcomigInfo += `
-            <tr>
+            <tr class ="table-info">
                 <td> ${futureEventsByCat[i].category} </td>
                 <td> $ ${futureEventsByCat[i].totalRevenues}.- </td>
                 <td> ${futureEventsByCat[i].mediaPercentage} %</td>
@@ -223,7 +227,7 @@ fetch(urlApi)
 
         for(let i = 0; i < pastEventsByCat.length; i++){
             pastInfo += `
-            <tr>
+            <tr class ="table-info">
                 <td> ${pastEventsByCat[i].category} </td>
                 <td> $ ${pastEventsByCat[i].totalRevenues}.- </td>
                 <td> ${pastEventsByCat[i].mediaPercentage} %</td>
@@ -237,7 +241,8 @@ fetch(urlApi)
 
     let box = document.getElementById("box");
 
-    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 + tBodyHeaders2 + upcomigInfo + tBodyHeaders3 + pastInfo;
+    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 + tBodyHeaders2 
+                    + upcomigInfo + tBodyHeaders3 + pastInfo;
 
     })
     .catch(error => {

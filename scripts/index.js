@@ -13,8 +13,8 @@ function createCards(dataArray) {
             cardString += `<div class="card">
     <img src="${event.image}">
     <h3>${event.name}</h3>
-    <p class="date">Date: ${event.date}</p>
     <p class="desc">${event.description}</p>
+    <p class="date">Date: ${event.date}</p>
     <div class="card-foot">
         <p>Price: $${event.price}.-</p>
         <a href="./details.html?id=${event._id}">More...</a>
@@ -64,8 +64,8 @@ function createFoundedCards(foundedDataArray){
             cardString += `<div class="card">
     <img src="${event.image}">
     <h3>${event.name}</h3>
-    <p>Date: ${event.date}</p>
     <p>Description: ${event.description} </p>
+    <p>Date: ${event.date}</p>
     <div class="card-foot">
         <p>Price: ${event.price}</p>
         <a href="./details.html?id=${event._id}">More...</a>

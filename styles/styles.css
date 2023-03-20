@@ -8,6 +8,7 @@
 
 html {
     font-size: 16px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -63,6 +64,9 @@ nav>a:hover {
 main {
     width: 100%;
     min-height: 85vh;
+    background-color: #fce6f0;
+    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23e0046c' fill-opacity='0.14' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-attachment: fixed;
 }
 
 .title {
@@ -105,11 +109,11 @@ main {
 }
 
 .search {
+    background-color: #e0046c;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    padding: 0.5rem;
-    gap: 1rem;
+    padding: 0.5rem 1rem;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -123,11 +127,15 @@ main {
     border-radius: 0;
 }
 
-.search button {
-    background-color: #e0046c;
+.category label:hover {
+    color: #e0046c;
+}
+
+.search i {
     color: #36011a;
-    padding: 0.3rem 0.5rem;
+    padding-left: 0.5rem;
     border: none;
+    font-size: 1.1rem;
 }
 
 /* cards container */
@@ -140,7 +148,7 @@ main {
     align-items: center;
     justify-content: space-evenly;
     gap: 2rem;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .card {
@@ -150,7 +158,7 @@ main {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
-    height: 28rem;
+    height: 25rem;
     padding: 1rem 1rem;
     color: #8b0243;
     text-align: center;
@@ -158,9 +166,10 @@ main {
 }
 
 .card:hover {
-    box-shadow: 0px 0px 10px 2px rgba(45, 1, 22, 0.5);
-    -webkit-box-shadow: 0px 0px 10px 2px rgba(45, 1, 22, 0.5);
-    -moz-box-shadow: 0px 0px 10px 2px rgba(45, 1, 22, 0.5);
+    outline: 5px outset #8b0243;
+    box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -webkit-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -moz-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
 }
 
 .card>img {
@@ -188,6 +197,7 @@ p.desc {
     font-size: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    color: #e0046c;
 }
 
 .card-foot {
@@ -204,7 +214,7 @@ p.desc {
 .detail-list li>a {
     text-decoration: none;
     background-color: #e0046c;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
     color: #fff;
     text-align: center;
     font-size: 1.1rem;
@@ -221,6 +231,7 @@ p.desc {
 
 /* contact */
 .contact {
+    border: 0.5px solid #8b0243;
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -229,6 +240,9 @@ p.desc {
     gap: 0.5rem;
     align-self: center;
     color: #8b0243;
+    box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -webkit-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -moz-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
 }
 
 .contact input,
@@ -255,15 +269,17 @@ p.desc {
     align-items: center;
     gap: 2rem;
     padding: 2rem;
+    border: 0.5px solid #8b0243;
     background-color: #fce6f0;
+    box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -webkit-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -moz-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
 }
 
 .detail li {
     color: #36011a;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.6rem;
-
+    list-style: none;
+    line-height: 2rem;
 }
 
 .detail img {
@@ -285,6 +301,11 @@ p.desc {
     font-weight: bold;
 }
 
+.detail-list li>span.li-name {
+    font-weight: bold;
+    color: #e0046c;
+}
+
 .detail-list li>a {
     width: 8rem;
     align-self: flex-end;
@@ -293,15 +314,24 @@ p.desc {
 
 /* stats */
 table {
+    border: 0.5px solid #fce6f0;
     background-color: #8b0243;
     padding: 10px;
     text-align: left;
     color: #36011a;
+    box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -webkit-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
+    -moz-box-shadow: 3px 3px 8px 5px rgba(45, 1, 22, 0.8);
 }
 
 th,
 td {
-    padding: 5px;
+    padding: 6px;
+    font-weight: 500;
+}
+
+td {
+    padding: 0px, 8px;
 }
 
 .top {
@@ -314,9 +344,18 @@ tr {
     background-color: #fce6f0;
 }
 
+tr.table>td:hover {
+    background-color: #f9cde2;
+}
+
+tr.table-info:hover {
+    background-color: #f9cde2;
+}
+
 .heading,
 thead tr {
     background-color: #e0046c;
+    color: #fce6f0;
 }
 
 /* footer */
