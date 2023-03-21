@@ -1,7 +1,6 @@
 console.log("Stats");
 
-let urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
-
+const urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
 
 
 //Function that filters and sorts the existing categories:
@@ -41,9 +40,57 @@ function orderCapacity(a, b) {
     return 0;
 }
 
+//Function that returns an array with the info needed to fill the 2nd & 3rd part of the table:
+function statsByCategory(arrCategories, arrEvents) {
+    let eventsByCat = [];
 
+    for (let cat of arrCategories) {
+        let totalRevenues = 0;
+        let percentageSum = 0;
+        let eventPercentage = 0;
+        let eventCount = 0;
 
+        let eventObj = {};
+        eventObj.category = cat;
 
+        for (let event of arrEvents) {
+            if (event.category.toLowerCase() == cat.toLowerCase()) {
+                totalRevenues += event.price * (event.estimate || event.assistance);
+                eventPercentage = (event.percentageEst || event.percentageOfAtt);
+                percentageSum += eventPercentage;
+                eventCount++;
+            }
+        }
+        eventObj.totalRevenues = totalRevenues;
+
+        if (percentageSum != 0) {
+            eventObj.mediaPercentage = (percentageSum / eventCount).toFixed(2);
+        }
+        else {
+            eventObj.mediaPercentage = 0;
+        }
+
+        eventsByCat.push(eventObj);
+    }
+    return eventsByCat;
+}
+
+//Function that returns the string to asign to the elements of the 2nd & 3rd table:
+function infoToRender(infoArray){
+    let info = ``;
+    for(let i = 0; i < infoArray.length; i++){
+        info += `
+        <tr class ="table-info">
+            <td> ${infoArray[i].category} </td>
+            <td> $ ${infoArray[i].totalRevenues} ✓ </td>
+            <td> ${infoArray[i].mediaPercentage} %</td>
+        </tr>
+        `
+    }
+    return info;
+}
+
+//Asinchronic block:
 fetch(urlApi)
     .then(response => response.json())
     .then(data => {
@@ -73,107 +120,15 @@ fetch(urlApi)
 
         //TOP Three:
         //Array sorted hi to low:
-        let eventsOrderHigh = pastEvents.map((event) => event);
-        eventsOrderHigh.sort(orderHiAtt);
-        // console.log("high", eventsOrderHigh);
+        let eventsOrderHigh = pastEvents.map((event) => event).sort(orderHiAtt);
 
         //Array sorted low to hi:
-        let eventsOrderLow = pastEvents.map((event) => event);
-        eventsOrderLow.sort(orderLowAtt);
-        // console.log("low", eventsOrderLow);
+        let eventsOrderLow = pastEvents.map((event) => event).sort(orderLowAtt);
 
         //Array sorted by capacity:
-        let eventsOrderCapacity = pastEvents.map((event) => event);
-        eventsOrderCapacity.sort(orderCapacity);
-        // console.log("cap", eventsOrderCapacity);
+        let eventsOrderCapacity = pastEvents.map((event) => event).sort(orderCapacity);
 
-        //UPCOMING EVENTS stats by category:
-        let futureEventsByCat = [];
-
-        for (let cat of categories) {
-            let totalRevenues = 0;
-            let percentageSum = 0;
-            let eventCount = 0;
-
-            let eventObj = {};
-            eventObj.category = cat;
-
-            for (let event of futureEvents) {
-                if (event.category.toLowerCase() == cat.toLowerCase()) {
-                    totalRevenues += event.price * event.estimate;
-                    percentageSum += event.percentageEst; 
-                    eventCount ++;
-
-                    // console.log("adentro", percentageSum);
-                }
-            }
-            // console.log("afuera", percentageSum);
-            eventObj.totalRevenues = totalRevenues;
-
-            if(percentageSum != 0){
-                eventObj.mediaPercentage = (percentageSum / eventCount).toFixed(2);
-            }
-            else{
-                eventObj.mediaPercentage = 0;
-            }
-
-            futureEventsByCat.push(eventObj);
-        }
-        console.log("futureEventsByCat: ", futureEventsByCat);
-
-
-        //PAST EVENTS stats by category:
-        let pastEventsByCat = [];
-
-        for (let cat of categories) {
-            let totalRevenues = 0;
-            let percentageSum = 0;
-            let eventCount = 0;
-
-            let eventObj = {};
-            eventObj.category = cat;
-
-            for (let event of pastEvents) {
-                if (event.category.toLowerCase() == cat.toLowerCase()) {
-                    totalRevenues += event.price * event.assistance;
-                    percentageSum += event.percentageOfAtt; 
-                    eventCount ++;
-
-                    // console.log("adentro", percentageSum);
-                }
-            }
-            // console.log("afuera", percentageSum);
-            eventObj.totalRevenues = totalRevenues;
-
-            if(percentageSum != 0){
-                eventObj.mediaPercentage = (percentageSum / eventCount).toFixed(2);
-            }
-            else{
-                eventObj.mediaPercentage = 0;
-            }
-
-            pastEventsByCat.push(eventObj);
-        }
-        console.log("pastEventsByCat: ", pastEventsByCat);
-
-
-
-        let tHead = `<table>
-        <thead>
-            <tr class="top">
-                <th colspan="3">Events Statistics</th>
-            </tr>
-        </thead>
-        `
-
-        let tBodyHeaders1 = `<tbody>
-            <tr class="heading">
-                <th>Events with the highest percentage of attendance</th>
-                <th>Events with the lowest percentage of attendance</th>
-                <th>Events with larger capacity</th>
-            </tr>
-        `
-
+        //Compute info for the 1st table, and asign the string to the element:
         let tInfoTop3 = ``;
         const rowsToRender = 3;
         
@@ -186,65 +141,22 @@ fetch(urlApi)
             </tr>
             `
         }
+        let top3 = document.getElementById("top-3");
+        top3.innerHTML = tInfoTop3;
 
-        let tBodyHeaders2 = `
-            <tr class="top">
-                <th colspan="3">Upcoming events statistics by category</th>
-            </tr>
+        //The same for the 2nd table:
+        let futureEventsByCat = statsByCategory(categories, futureEvents);
+        let upcomigInfo = infoToRender(futureEventsByCat);
+        let future = document.getElementById("future");
+        future.innerHTML = upcomigInfo;
 
-            <tr class="heading">
-                <th>Categories</th>
-                <th>Revenues</th>
-                <th>Percentage of attendance</th>
-            </tr>
-        `
-
-        let upcomigInfo = ``;
-
-        for(let i = 0; i < futureEventsByCat.length; i++){
-            upcomigInfo += `
-            <tr class ="table-info">
-                <td> ${futureEventsByCat[i].category} </td>
-                <td> $ ${futureEventsByCat[i].totalRevenues}.- </td>
-                <td> ${futureEventsByCat[i].mediaPercentage} %</td>
-            </tr>
-            `
-        }
-
-        let tBodyHeaders3 = `
-            <tr class="top">
-                <th colspan="3">Past events statistics by category</th>
-            </tr>
-
-            <tr class="heading">
-                <th>Categories</th>
-                <th>Revenues</th>
-                <th>Percentage of attendance</th>
-            </tr>
-        `;
-
-        let pastInfo = ``;
-
-        for(let i = 0; i < pastEventsByCat.length; i++){
-            pastInfo += `
-            <tr class ="table-info">
-                <td> ${pastEventsByCat[i].category} </td>
-                <td> $ ${pastEventsByCat[i].totalRevenues}.- </td>
-                <td> ${pastEventsByCat[i].mediaPercentage} %</td>
-            </tr>
-            `
-        }
-        pastInfo += `
-        </tbody>
-    </table>
-        `
-
-    let box = document.getElementById("box");
-
-    box.innerHTML = tHead + tBodyHeaders1 + tInfoTop3 + tBodyHeaders2 
-                    + upcomigInfo + tBodyHeaders3 + pastInfo;
+        //And for the 3rd:
+        let pastEventsByCat = statsByCategory(categories, pastEvents);
+        let pastInfo = infoToRender(pastEventsByCat);
+        let past = document.getElementById("past");
+        past.innerHTML = pastInfo;
 
     })
     .catch(error => {
-        console.log(`Mi error: ${error}`);
+        console.log(error);
     })
