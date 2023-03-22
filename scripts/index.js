@@ -90,7 +90,11 @@ const box = document.getElementById("box");
 //Capture the html element where we want to put the categories:
 const form = document.querySelector(".category");
 
+//Loader:
+const loader = `<div class="loader">Loading...</div>`;
+box.innerHTML = loader;
 
+//Asinchronic block:
 fetch(urlApi)
     .then(response => response.json())
     .then(data => {

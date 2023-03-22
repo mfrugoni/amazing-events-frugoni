@@ -90,6 +90,15 @@ function infoToRender(infoArray){
     return info;
 }
 
+//Loader:
+let top3 = document.getElementById("top-3");
+let future = document.getElementById("future");
+let past = document.getElementById("past");
+const loader = `<div class="loader">Loading...</div>`;
+top3.innerHTML = loader;
+future.innerHTML = loader;
+past.innerHTML = loader;
+
 //Asinchronic block:
 fetch(urlApi)
     .then(response => response.json())
@@ -141,19 +150,19 @@ fetch(urlApi)
             </tr>
             `
         }
-        let top3 = document.getElementById("top-3");
+        
         top3.innerHTML = tInfoTop3;
 
         //The same for the 2nd table:
         let futureEventsByCat = statsByCategory(categories, futureEvents);
         let upcomigInfo = infoToRender(futureEventsByCat);
-        let future = document.getElementById("future");
+
         future.innerHTML = upcomigInfo;
 
         //And for the 3rd:
         let pastEventsByCat = statsByCategory(categories, pastEvents);
         let pastInfo = infoToRender(pastEventsByCat);
-        let past = document.getElementById("past");
+
         past.innerHTML = pastInfo;
 
     })
