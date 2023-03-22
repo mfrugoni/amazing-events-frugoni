@@ -104,11 +104,8 @@ fetch(urlApi)
     .then(response => response.json())
     .then(data => {
 
-        console.log(data.events);
-
         //Filter categories:
         let categories = filterArrayCat(data.events);
-        console.log("cat", categories);
 
         //Filter events by date:
         let pastEvents = data.events.filter((event) => event.date < data.currentDate);
@@ -119,13 +116,11 @@ fetch(urlApi)
         pastEvents.forEach((event) => {
             event.percentageOfAtt = parseFloat((event.assistance * 100 / event.capacity).toFixed(2));
         })
-        // console.log("past ", pastEvents);
 
         //Adds the property Percentage estimated to each event in futureEvents array:
         futureEvents.forEach((event) => {
             event.percentageEst = parseFloat((event.estimate * 100 / event.capacity).toFixed(2));
         })
-        console.log("fut ", futureEvents);
 
         //TOP Three:
         //Array sorted hi to low:

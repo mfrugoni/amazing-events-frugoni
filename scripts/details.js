@@ -2,25 +2,21 @@ console.log("Details");
 
 let urlApi = "https://mindhub-xj03.onrender.com/api/amazing";
 
-console.log([document]);
 
 const queryString = location.search;
 const params = new URLSearchParams(queryString);
 const eventId = params.get("id")
 
+const detail = document.querySelector(".detail")
+//Loader:
+const loader = `<div class="loader">Loading...</div>`;
+detail.innerHTML = loader;
 
 fetch(urlApi)
     .then(response => response.json())
     .then(data => {
 
         const evento = data.events.find(evento => evento._id == eventId)
-
-        console.log("queryString", queryString)
-        console.log("params", params);
-        console.log("eventId", eventId);
-
-
-        const detail = document.querySelector(".detail")
 
         const detailString = `
 <img src="${evento.image}" alt="">
