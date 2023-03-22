@@ -321,7 +321,7 @@ p.desc {
 }
 
 /* Details */
-.detail {
+.detail, .not-founded {
     width: fit-content;
     height: fit-content;
     max-width: 90%;

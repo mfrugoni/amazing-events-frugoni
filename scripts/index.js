@@ -76,9 +76,12 @@ function createFoundedCards(foundedDataArray){
     }
 
 else {
-    cardString += `<p>We are sorry. Your search 🔭 did not return any results.😢 
-    Please try again with other information 😎 Or... you can visit 
-    <a href="./upcoming-events.html">THIS</a> awesome events we got for you!</p>`
+    cardString += `<div class="not-founded">
+    <p>We are sorry... but your search 🔭 did not return any results.😢</p>
+    <p>Please try again with different words 😎</p>
+    <p>Or... you can visit <a href="./upcoming-events.html">THIS</a> awesome events that we got for you!</p>
+</div>
+`
 }
 
     return cardString;
