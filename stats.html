@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/img/favicon-ae.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <title>Stats | Amazing Events</title>
+</head>
+
+<body>
+    <header>
+
+        <a href="./index.html">
+            <img src="./assets/img/logo-a-events.png" alt="Amazing Events Logo">
+        </a>
+
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="./upcoming-events.html">Upcoming Events</a>
+            <a href="./past-events.html">Past Events</a>
+            <a class="current" href="#">Stats</a>
+            <a href="./contact.html">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <div class="title">
+            <a class="flecha" href="./past-events.html">&lt;</a>
+            <h1>Stats</h1>
+            <a class="flecha" href="./contact.html">></a>
+        </div>
+        <div id="box">
+            <table>
+                <thead>
+                    <tr class="top">
+                        <th colspan="3">Events Statistics</th>
+                    </tr>
+                </thead>
+                <tbody id="stats">
+                    <tr class="heading">
+                        <th>Events with the highest percentage of attendance</th>
+                        <th>Events with the lowest percentage of attendance</th>
+                        <th>Events with larger capacity</th>
+                    </tr>
+                </tbody>
+                <tbody id="top-3">
+                    <!-- Here the table rows are dynamically loaded from index.js -->
+                </tbody>
+        
+                <tbody>
+                    <tr class="top">
+                        <th colspan="3">Upcoming events statistics by category</th>
+                    </tr>
+        
+                    <tr class="heading">
+                        <th>Categories</th>
+                        <th>Revenues</th>
+                        <th>Percentage of attendance</th>
+                    </tr>
+                </tbody>
+        
+                <tbody id="future">
+                    <!-- Here the table rows are dynamically loaded from index.js -->
+                </tbody>
+                <tbody>
+                    <tr class="top">
+                        <th colspan="3">Past events statistics by category</th>
+                    </tr>
+        
+                    <tr class="heading">
+                        <th>Categories</th>
+                        <th>Revenues</th>
+                        <th>Percentage of attendance</th>
+                    </tr>
+                </tbody>
+        
+                <tbody id="past">
+                    <!-- Here the table rows are dynamically loaded from index.js -->
+                </tbody>
+            </table>
+        </div>
+
+
+    </main>
+    <footer>
+        <div class="social">
+            <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
+
+            <a href="https://es-la.facebook.com/"><i class="bi bi-facebook"></i></a>
+
+            <a href="https://www.whatsapp.com/"><i class="bi bi-whatsapp"></i></a>
+        </div>
+        <h3>Cohort</h3>
+    </footer>
+
+    <script src="./scripts/stats.js"></script>
+
+</body>
+
+</html>
