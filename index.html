@@ -16,18 +16,22 @@
 </head>
 
 <body>
-    <header>
+    <header class="top-nav">
         <a href="#">
             <img src="./assets/img/logo-a-events.png" alt="Amazing Events Logo">
         </a>
 
-        <nav>
-            <a class="current" href="#">Home</a>
-            <a href="./upcoming-events.html">Upcoming Events</a>
-            <a href="./past-events.html">Past Events</a>
-            <a href="./stats.html">Stats</a>
-            <a href="./contact.html">Contact</a>
-        </nav>
+        <input id="menu-toggle" type="checkbox" />
+        <label class='menu-button-container' for="menu-toggle">
+            <div class='menu-button'></div>
+        </label>
+        <ul class="menu">
+            <li><a id="current" href="#">Home</a></li>
+            <li><a href="./upcoming-events.html">Upcoming Events</a></li>
+            <li><a href="./past-events.html">Past Events</a></li>
+            <li><a href="./stats.html">Stats</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+        </ul>
 
     </header>
 
